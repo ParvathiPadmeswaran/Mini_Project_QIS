@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home</title>
+  <link rel="icon" href="favicon.ico">
+  <link href="{% static 'style.css' %}" rel="stylesheet">
+</head>
+
+<body x-data="{ page: 'home', 'darkMode': true, 'stickyMenu': false, 'navigationOpen': false, 'scrollTop': false }"
+  x-init="
+         darkMode = JSON.parse(localStorage.getItem('darkMode'));
+         $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
+  :class="{'b eh': darkMode === true}">
+  <!-- ===== Header Start ===== -->
+  <header class="g s r vd ya cj" :class="{ 'hh sm _k dj bl ll' : stickyMenu }"
+    @scroll.window="stickyMenu = (window.pageYOffset > 20) ? true : false">
+    <div class="bb ze ki xn 2xl:ud-px-0 oo wf yf i">
+      <div class="vd to/4 tc wf yf">
+        <a href="{% url 'home' %}">
+          <img class="om" src="{% static 'images/logo-light.png' %}" alt="Logo Light" width="300px" height="50px"/> 
+        </a>
+
+        <!-- Hamburger Toggle BTN -->
+        <button class="po rc" @click="navigationOpen = !navigationOpen">
+          <span class="rc i pf re pd">
+            <span class="du-block h q vd yc">
+              <span class="rc i r s eh um tg te rd eb ml jl dl" :class="{ 'ue el': !navigationOpen }"></span>
+              <span class="rc i r s eh um tg te rd eb ml jl fl" :class="{ 'ue qr': !navigationOpen }"></span>
+              <span class="rc i r s eh um tg te rd eb ml jl gl" :class="{ 'ue hl': !navigationOpen }"></span>
+            </span>
+            <span class="du-block h q vd yc lf">
+              <span class="rc eh um tg ml jl el h na r ve yc" :class="{ 'sd dl': !navigationOpen }"></span>
+              <span class="rc eh um tg ml jl qr h s pa vd rd" :class="{ 'sd rr': !navigationOpen }"></span>
+            </span>
+          </span>
+        </button>
+        <!-- Hamburger Toggle BTN -->
+      </div>
+
+      <div class="vd wo/4 sd qo f ho oo wf yf" :class="{ 'd hh rm sr td ud qg ug jc yh': navigationOpen }">
+        <nav>
+        </nav>
+
+        <div class="tc wf ig pb no">
+          <a href=""> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; </a>
+          <a href="{% url 'about' %}" class="xl">About</a>&nbsp; &nbsp; &nbsp; &nbsp; </a>
+          <a href="{% url 'contacts' %}" class="xl">Contact</a>
+          <a href=""> &nbsp; &nbsp; &nbsp; &nbsp; </a>
+          <a href="{% url 'registerstatuscheck' %}" class="xl" :class="{ 'mk': page === 'home' }">Status</a>          
+          <a href=""> &nbsp; &nbsp; &nbsp; &nbsp; </a>
+          <a href="{% url 'slogin' %}" class="xl">Sign In</a>
+          <a href="">&nbsp; &nbsp; &nbsp; &nbsp; </a>
+          <a href="{% url 'register' %}" class="xl">Sign Up</a>
+          <a href=""> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </a>
+          <a href="{% url 'view_messages' %}" class="xl" :class="{ 'mk': page === 'home' }">View Notifications</a>          
+         <a href=""> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </a>
+
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Header End ===== -->
+
+  <main>
+    <!-- ===== Hero Start ===== -->
+  
+    <section class="gj do ir hj sp jr i pg">
+      <!-- Hero Images -->
+      <div class="xc fn zd/2 2xl:ud-w-187.5 bd 2xl:ud-h-171.5 h q r">
+        <!-- <img src="images/shape-04.svg" alt="shape" class="h q r" /> -->
+        <img src="{% static 'images/hero.png' %}" alt="Woman" class="h q  ua boti" />
+     
+      </div>
+
+      <!-- Hero Content -->
+       
+      <div class="bb ze ki xn 2xl:ud-px-0">
+        <div class="tc _o">
+          <div class=" jn/2">
+            <h1>&nbsp;</h1>
+            <h1 class="fk vj zp or kk wm wb">Learn and Teach <br>Smarter with Teachly</h1>
+            <p class="fq">
+              Expand your knowledge and share your expertise through our engaging online platform
+            <div class="tc tf yo zf mb">
+              <!-- <a href="#!" class="ek jk lk gh gi hi rg ml il vc _d _l">Get Started Now</a> -->
+              <a href="{% url 'slogin' %}"><button style="background-color: blue; color: white; border: none; width: 200px; height: 50px; padding: 12px 30px; border-radius: 10px;">Get Started Now</button></a>
+
+             
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+  </main>
+
+  <script defer src="{% static 'bundle.js' %}"></script>
+</body>
+
+</html>

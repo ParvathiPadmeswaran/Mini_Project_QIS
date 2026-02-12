@@ -1,0 +1,172 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Status</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #fce4ec);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ===== Header ===== */
+        .header {
+            width: 100%;
+            background: #ffffff;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+
+        .header img {
+            height: 80px;
+        }
+
+        .home-btn {
+            background: #1a73e8;
+            color: white;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .home-btn:hover {
+            background: #0c5fd0;
+        }
+
+        /* ===== Main Container ===== */
+        .container {
+            margin-top: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .status-card {
+            background: #ffffff;
+            padding: 60px 80px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            max-width: 500px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .status-card h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .status-text {
+            font-size: 42px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .approved {
+            color: #4caf50;
+        }
+
+        .declined {
+            color: #f44336;
+        }
+
+      
+
+        .btn-logout {
+            display: inline-block;
+            padding: 12px 25px;
+            background: #1a73e8;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-logout:hover {
+            background: #0c5fd0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media(max-width:600px) {
+            .status-card {
+                padding: 40px 30px;
+            }
+
+            .status-text {
+                font-size: 32px;
+            }
+
+            .header {
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <img src="{% static 'images/logo-light.png' %}" alt="Logo">
+        <a href="{% url 'home' %}" class="home-btn">Home</a>
+    </div>
+
+    <div class="container">
+        <div class="status-card">
+            <h2 class="username">Hello, {% if user.is_authenticated %}{{ user.first_name }}{% else %}Guest{% endif %}</h2><br>
+            <h3>Your registration has</h3>
+
+            <div class="status-text
+                {% if status == 'Approved ✅' %}approved{% else %}declined{% endif %}">
+                {{ status }}
+            </div>
+            
+    {% if status == 'Approved ✅' %}
+    <a href="{% url 'slogin' %}"><button style="background-color: lightgreen; border: none; border-radius: 100px; width: 200px; height: 50px;">Login to your account</button></a>
+    {% else %}
+        <a href="{% url 'registerstatuscheck' %}"><button style="background-color: rgb(14, 126, 192); border: none; border-radius: 100px; width: 200px; height: 50px; color: white;">Check status again!</button></a>
+    {% endif %}
+
+            
+        </div>
+    </div>
+
+</body>
+
+</html> 

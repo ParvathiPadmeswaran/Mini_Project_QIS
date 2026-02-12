@@ -1,0 +1,74 @@
+{% extends 'studentbase.html' %}
+{% block stud %}
+
+    <style>
+    .student-card {
+        width: 60%;
+        margin: 40px auto;
+        border-collapse: separate;
+        border-spacing: 0;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        background: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .student-card th,
+    .student-card td {
+        padding: 14px 18px;
+        border-bottom: 1px solid #e0e6f8;
+    }
+
+    .student-card th {
+        width: 35%;
+        text-align: left;
+        background: #f0f4ff;
+        color: #2c3e50;
+        font-weight: 600;
+    }
+
+    .student-card td {
+        color: #34495e;
+    }
+
+    .student-card tr:last-child th,
+    .student-card tr:last-child td {
+        border-bottom: none;
+    }
+    
+</style>
+
+
+<h1 style="color: #3c73aa ;">Welcome Home...</h1>
+<table class="student-card">
+    {% for student in student %}
+    <tr>
+        <th>Name</th>
+        <td>{{ student.student_id.first_name }} {{ student.student_id.last_name }}</td>
+    </tr>
+    <tr>
+        <th>Guardian Name</th>
+        <td>{{ student.student_guardian }}</td>
+    </tr>
+    <tr>
+        <th>Email ID</th>
+        <td>{{ student.student_id.email }}</td>
+    </tr>
+    <tr>
+        <th>Phone Number</th>
+        <td>{{ student.student_phn }}</td>
+    </tr>
+    <tr>
+        <th>Address</th>
+        <td>{{ student.student_address }}</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+          <a href="{% url 'ses' %}" ><button style="background-color: #3c73aa; border: none; border-radius: 20px; width: 700px; color: white;" >Edit Profile</button></a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock stud %}

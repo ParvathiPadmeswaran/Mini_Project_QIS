@@ -1,0 +1,160 @@
+{% extends 'teacherbase.html' %}
+
+{% block teacherhome %}
+<style>
+    .leave-table {
+       
+        border-collapse: separate;
+        border-spacing: 0 10px;
+        font-family: "Segoe UI", sans-serif;
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    .leave-table th {
+        background-color: #0a3d62;
+        color: #ffffff;
+        padding: 14px;
+        text-align: left;
+        font-size: 14px;
+        /* border-radius: 8px 8px 0 0; */
+        background: linear-gradient(135deg, #0a3d62, #2a5298);
+    }
+
+    .leave-table td {
+        background-color: #ffffff;
+        padding: 12px 14px;
+        font-size: 14px;
+        color: #333;
+    }
+
+    .leave-table tr {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        border-radius: 8px;
+    }
+
+    .leave-table tr:hover td {
+        background-color: #f0f7ff;
+        transition: 0.3s;
+    }
+
+    .status {
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        display: inline-block;
+        text-align: center;
+    }
+
+    .Pending {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+
+    .Approved {
+        background-color: #d4edda;
+        color: #155724;
+    }
+
+    .Rejected {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+
+    .btn {
+        padding: 6px 14px;
+        border-radius: 20px;
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 600;
+        margin-right: 6px;
+        display: inline-block;
+    }
+
+    .btn-approve {
+        background-color: #1e90ff;
+        color: #ffffff;
+    }
+
+    .btn-reject {
+        background-color: #ff4d4d;
+        color: #ffffff;
+    }
+
+    .btn:hover {
+        opacity: 0.85;
+    }
+
+    .file-link {
+        color: #1e90ff;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .file-link:hover {
+        text-decoration: underline;
+    }
+
+        .table-container {
+        max-width: 1100px;   /* controls table width */
+        margin: 30px auto;   /* center horizontally */
+        padding: 20px;
+        background: #eef5ff;
+        border-radius: 14px;
+    }
+
+        #h1{
+        text-align: center;
+        color: #2a5298;
+        font-weight: 900;
+        font-family:'Times New Roman', Times, serif;
+        
+    }
+
+
+</style>
+
+<h1 id="h1">Leave Applications</h1>
+
+<div class="table-container">
+
+<table class="leave-table">
+    <tr>
+        <th>Student</th>
+        <th>Leave Date</th>
+        <th>Submitted Date</th>
+        <th>Type</th>
+        <th>Document</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+
+    {% for l in leaves %}
+    <tr>
+        <td>{{ l.student.student_id.first_name }} {{ l.student.student_id.last_name }}</td>
+        <td>{{ l.leave_date }}</td>
+        <td>{{ l.applied_on|date:"d M Y, h:i A" }}</td>
+        <td>{{ l.leave_type }}</td>
+        <td>
+            {% if l.document %}
+                <a href="{{ l.document.url }}" class="file-link">View</a>
+            {% else %}
+                No file
+            {% endif %}
+        </td>
+        <td>
+            <span class="status {{ l.status }}">{{ l.status }}</span>
+        </td>
+        <td>
+            {% if l.status == "Pending" %}
+                <a href="{% url 'approve_leave' l.id %}" class="btn btn-approve">Approve</a>
+                <a href="{% url 'reject_leave' l.id %}" class="btn btn-reject">Reject</a>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+{% endblock teacherhome %}
+    

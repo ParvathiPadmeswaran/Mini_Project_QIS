@@ -1,0 +1,107 @@
+{% extends 'studentbase.html' %}
+
+{% block stud %}
+
+<style>
+    h2 {
+        text-align: center;
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+        color: #2c3e50;
+        margin-bottom: 30px;
+    }
+
+    .message-card {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 15px 20px;
+        margin-bottom: 20px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+        transition: transform 0.2s;
+    }
+
+    .message-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    }
+
+    .message-card h4 {
+        margin: 0 0 10px 0;
+        color: #3498db;
+        font-size: 18px;
+    }
+
+    .message-card p {
+        margin: 0 0 10px 0;
+        color: #34495e;
+        line-height: 1.5;
+    }
+
+    .message-card small {
+        color: #7f8c8d;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .message-card a {
+        display: inline-block;
+        padding: 6px 12px;
+        background-color: #3498db;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 14px;
+        transition: background 0.3s;
+    }
+
+    .message-card a:hover {
+        background-color: #2980b9;
+    }
+
+    p.no-message {
+        text-align: center;
+        font-style: italic;
+        color: #e74c3c;
+        font-weight: 600;
+        margin-top: 30px;
+    }
+</style>
+
+<h2>Messages from Your Teacher</h2>
+
+{% for msg in messages %}
+    <div class="message-card">
+        <h4>{{ msg.title }}</h4>
+        <p>{{ msg.message }}</p>
+        <small>{{ msg.created_at }}</small>
+
+        {% if msg.file %}
+            <a href="{{ msg.file.url }}" download>Download File</a>
+        {% endif %}
+    </div>
+{% empty %}
+    <p class="no-message">No messages available</p>
+{% endfor %}
+
+
+{% endblock stud %}
+
+
+<!-- 
+<h2>Admin Announcements</h2>
+
+{% for msg in admin_messages %}
+<div style="border:1px solid #f00; padding:10px; margin-bottom:10px;">
+    <h4>{{ msg.title }}</h4>
+    <p>{{ msg.message }}</p>
+    <small>{{ msg.created_at }}</small><br>
+    {% if msg.file %}
+        <a href="{{ msg.file.url }}" download>Download File</a>
+    {% endif %}
+</div>
+{% empty %}
+<p>No admin announcements</p>
+{% endfor %} -->
+<!-- 
+<hr> -->

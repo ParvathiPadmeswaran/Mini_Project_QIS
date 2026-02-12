@@ -1,0 +1,85 @@
+{% extends 'studentbase.html' %}
+
+{% block stud %}
+
+        <style>
+    form {
+        width: 50%;
+        margin: 40px auto;
+        padding: 30px 40px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    form label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: #34495e;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"] {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
+        margin-bottom: 20px;
+        transition: border-color 0.3s;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="number"]:focus {
+        border-color: #3498db;
+        outline: none;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px 0;
+        background-color: #2980b9;
+        color: #000;
+        border: 1px solid #9bff7f;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s, border-color 0.3s;
+    }
+
+    button:hover {
+        background-color: #2980b9;
+        border-color: #7a83e5;
+    }
+</style>
+
+<form action="/sses/{{a.id}}" method="post">
+    {% csrf_token %}
+    <label for="firstname">First Name:</label>
+    <input type="text" name="firstname" value="{{b.first_name}}" id="firstname">
+
+    <label for="lastname">Last Name:</label>
+    <input type="text" name="lastname" value="{{b.last_name}}" id="lastname">
+
+    <!-- <label for="email">Email-ID:</label>
+    <input type="email" name="email" value="{{b.email}}" id="email"> -->
+
+    <label for="address">Address:</label>
+    <input type="text" name="address" value="{{a.student_address}}" id="address">
+
+    <label for="phonenumber">Phone Number:</label>
+    <input type="number" name="phonenumber" value="{{a.student_phn}}" id="phonenumber">
+
+    <label for="guardian">Guardian Name:</label>
+    <input type="text" name="guardian" value="{{a.student_guardian}}" id="guardian">
+
+    <button type="submit">Save Changes</button>
+</form>
+
+{% endblock stud %}
+    

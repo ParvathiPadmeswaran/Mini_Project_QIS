@@ -1,0 +1,53 @@
+{% extends 'teacherbase.html' %}
+
+
+{% block teacherhome %}
+    
+        <div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      <div class="card shadow-lg border-0 rounded-4">
+
+        <div class="card-header  text-white text-center rounded-top-4" style="background-color: rgb(69, 97, 145);">
+          <h4 class="mb-0" style="color: white;">Profile</h4>
+        </div>
+
+
+        <div class="card-body p-4">
+
+<table border="2px" class="table table-bordered ">
+        <tr>
+            <th>Name</th>
+            <td>{{teacher.teacher_id.first_name}} {{teacher.teacher_id.last_name}}</td></tr>
+
+           <tr> <th>User Name</th>
+            <td>{{teacher.teacher_id.username}}</td></tr>
+
+           <tr> <th>Email ID</th>
+            <td>{{teacher.teacher_id.email}}</td></tr>
+
+          <tr>  <th>Phone Number</th>
+            <td>{{teacher.teacher_phn}}</td></tr>
+
+           <tr> <th>Address</th>
+            <td>{{teacher.teacher_address}}</td></tr>
+
+           <tr><th>Salary</th>
+            <td>{{teacher.teacher_salary}}</td></tr>
+
+            <tr><th>Experience</th>
+            <td>{{teacher.teacher_experience}}</td></tr>
+
+            <tr><th>Subject</th>
+            <td>{{teacher.subject}}</td></tr>
+        </tr>
+    </table>
+    <!-- <center>
+     <a href="{% url 'tet' %}">
+              <button type="submit" style="background-color: rgb(69, 97, 145); color: white;" class="btn  px-4 d-flex justify-content-between align-items-center mt-4" >
+                Edit Profile
+              </button></center></a> -->
+
+    {% endblock teacherhome %}
+    

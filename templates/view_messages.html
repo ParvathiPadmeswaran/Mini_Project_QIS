@@ -1,0 +1,153 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notifications</title>
+  <link rel="icon" href="favicon.ico">
+  <link href="{% static 'style.css' %}" rel="stylesheet">
+</head>
+
+<body x-data="{ page: 'home', 'darkMode': true, 'stickyMenu': false, 'navigationOpen': false, 'scrollTop': false }"
+  x-init="
+         darkMode = JSON.parse(localStorage.getItem('darkMode'));
+         $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
+  :class="{'b eh': darkMode === true}">
+  <!-- ===== Header Start ===== -->
+  <header class="g s r vd ya cj" :class="{ 'hh sm _k dj bl ll' : stickyMenu }"
+    @scroll.window="stickyMenu = (window.pageYOffset > 20) ? true : false">
+    <div class="bb ze ki xn 2xl:ud-px-0 oo wf yf i">
+      <div class="vd to/4 tc wf yf">
+        <a href="{% url 'home' %}">
+          <img class="om" src="{% static 'images/logo-light.png' %}" alt="Logo Light" width="150px" height="1000px"/> 
+        </a>
+
+        <!-- Hamburger Toggle BTN -->
+        <button class="po rc" @click="navigationOpen = !navigationOpen">
+          <span class="rc i pf re pd">
+            <span class="du-block h q vd yc">
+              <span class="rc i r s eh um tg te rd eb ml jl dl" :class="{ 'ue el': !navigationOpen }"></span>
+              <span class="rc i r s eh um tg te rd eb ml jl fl" :class="{ 'ue qr': !navigationOpen }"></span>
+              <span class="rc i r s eh um tg te rd eb ml jl gl" :class="{ 'ue hl': !navigationOpen }"></span>
+            </span>
+            <span class="du-block h q vd yc lf">
+              <span class="rc eh um tg ml jl el h na r ve yc" :class="{ 'sd dl': !navigationOpen }"></span>
+              <span class="rc eh um tg ml jl qr h s pa vd rd" :class="{ 'sd rr': !navigationOpen }"></span>
+            </span>
+          </span>
+        </button>
+        <!-- Hamburger Toggle BTN -->
+      </div>
+
+      <div class="vd wo/4 sd qo f ho oo wf yf" :class="{ 'd hh rm sr td ud qg ug jc yh': navigationOpen }">
+        <nav>
+        </nav>
+        <div class="tc wf ig pb no">
+          <a href=""> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </a>
+          <a href="{% url 'home' %}" class="xl" :class="{ 'mk': page === 'home' }">Home</a>
+          <a href=""> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </a>
+          <a href="{% url 'slogin' %}" class="xl">Sign In</a>
+          <a href=""> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </a>
+          <a href="{% url 'register' %}" class="xl">Sign Up</a>
+          <a href=""> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </a>
+        </div>
+      </div>
+    </div>
+
+
+<style>
+/* Header */
+h1 {
+    font-family: 'Arial', sans-serif;
+    font-size: 24px;
+    color: #0056b3;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+
+/* Notification card */
+.notification {
+    border-left: 4px solid #007bff; /* Blue accent */
+    background-color: #e6f0ff;       /* Light blue background */
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: background-color 0.2s;
+}
+
+/* Hover effect */
+.notification:hover {
+    background-color: #cce0ff;
+}
+
+/* Notification title */
+.notification h4 {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+    color: #0056b3; /* Darker blue for title */
+}
+
+/* Notification message */
+.notification p {
+    margin: 0 0 5px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Timestamp */
+.notification small {
+    color: #666;
+    font-size: 12px;
+}
+
+/* Download link */
+.notification a {
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-size: 12px;
+    transition: background-color 0.2s;
+}
+
+.notification a:hover {
+    background-color: #0056b3;
+}
+
+/* Empty state */
+.no-notifications {
+    font-style: italic;
+    color: #555;
+    font-size: 14px;
+}
+</style>
+
+    
+  </header>
+  <main>
+    <section class="ji gp uq 2xl:ud-py-35 pg">
+ <center> <h1>Notifications</h1></center>
+
+{% for msg in admin_messages %}
+<div class="notification">
+    <h4>{{ msg.title }}</h4>
+    <p>{{ msg.message }}</p>
+    <small>{{ msg.created_at }}</small><br>
+    {% if msg.file %}
+        <a href="{{ msg.file.url }}" download>Download</a>
+    {% endif %}
+</div>
+{% empty %}
+<p class="no-notifications">No notifications</p>
+{% endfor %}
+    </section>
+    
+</main>
+    <script defer src="{% static 'bundle.js' %}"></script>
+</body>
+</html>

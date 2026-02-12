@@ -1,0 +1,70 @@
+{% extends 'teacherbase.html' %}
+
+{% block teacherhome %}
+    
+<div class="container-fluid py-5 bg-light">
+  <div class="row justify-content-center">
+    <div class="col-xl-9 col-lg-10">
+
+      <div class="bg-white shadow-sm rounded-3 p-4
+                  border-start border-5 border-danger">
+
+        <div class="mb-4">
+          <center><h3 class="fw-semibold text-primary">Upload New Message...</h3>
+          <p class="text-muted mb-0">
+            Share announcements or documents with students</center>
+          </p>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold text-primary">
+              Message Title
+            </label>
+            <input
+              type="text"
+              name="title"
+              class="form-control form-control-lg"
+              placeholder="Eg: Exam Schedule Update"
+              required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold text-primary">
+              Message Content
+            </label>
+            <textarea
+              name="message"
+              class="form-control"
+              rows="6"
+              placeholder="Type your message here..."
+              required></textarea>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label fw-semibold text-primary">
+              Attach File (Optional)
+            </label>
+            <input type="file" name="file" class="form-control">
+            <div class="form-text">
+              PDF, image, or document files
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end gap-2">
+            <button type="submit" class="btn btn-success px-4">
+              Publish Message
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock teacherhome %}

@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block content %}
+
+ <style>
+    .message-container {
+        max-width: 520px;
+        margin: 50px auto;
+        padding: 30px;
+        background: #eef5ff;
+        border-radius: 14px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        font-family: "Segoe UI", sans-serif;
+    }
+
+    .message-container h2 {
+        text-align: center;
+        font-weight: 800;
+        color: #0a3d62;
+        margin-bottom: 25px;
+        letter-spacing: 1px;
+    }
+
+    .message-container label {
+        display: block;
+        font-weight: 600;
+        color: #0a3d62;
+        margin-bottom: 6px;
+        font-size: 14px;
+    }
+
+    .message-container input[type="text"],
+    .message-container textarea,
+    .message-container input[type="file"] {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1px solid #cfdff7;
+        font-size: 14px;
+        outline: none;
+        margin-bottom: 15px;
+        background-color: #ffffff;
+    }
+
+    .message-container textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+
+    .message-container input:focus,
+    .message-container textarea:focus {
+        border-color: #1e90ff;
+        box-shadow: 0 0 0 2px rgba(30, 144, 255, 0.2);
+    }
+
+    .upload-btn {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(135deg, #1e90ff, #0a3d62);
+        color: #ffffff;
+        border: none;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    .upload-btn:hover {
+        opacity: 0.9;
+    }
+</style>
+
+<div class="message-container">
+    <h2>Upload Message</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label>Title</label>
+        <input type="text" name="title" required>
+
+        <label>Message</label>
+        <textarea name="message" required></textarea>
+
+        <label>File (optional)</label>
+        <input type="file" name="file">
+
+        <button type="submit" class="upload-btn">Upload</button>
+    </form>
+</div>
+
+    
+{% endblock content %}
+    
+
+

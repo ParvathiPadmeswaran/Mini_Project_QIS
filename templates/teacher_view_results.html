@@ -1,0 +1,170 @@
+{% extends 'teacherbase.html' %}
+
+{% block teacherhome %}
+
+<style>
+    .results-container {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 25px;
+        background: #eef5ff;
+        border-radius: 14px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        font-family: "Segoe UI", sans-serif;
+    }
+
+    .results-container h2 {
+        font-weight: 800;
+        color: #0a3d62;
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+    }
+
+    /* Filter Form */
+    .filter-form {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+
+    .filter-form label {
+        font-weight: 600;
+        color: #0a3d62;
+        font-size: 14px;
+    }
+
+    .filter-form select {
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 1px solid #cfdff7;
+        font-size: 14px;
+        outline: none;
+    }
+
+    .filter-form select:focus {
+        border-color: #1e90ff;
+        box-shadow: 0 0 0 2px rgba(30, 144, 255, 0.2);
+    }
+
+    .filter-btn {
+        padding: 9px 18px;
+        background: linear-gradient(135deg, #1e90ff, #0a3d62);
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .filter-btn:hover {
+        opacity: 0.9;
+    }
+
+    /* Table */
+    .results-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+        background: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .results-table th {
+        background-color: #0a3d62;
+        color: #ffffff;
+        padding: 12px;
+        text-align: left;
+        font-size: 14px;
+    }
+
+    .results-table td {
+        padding: 10px 12px;
+        border-bottom: 1px solid #e0e0e0;
+        font-size: 14px;
+        color: #333;
+    }
+
+    .results-table tr:nth-child(even) {
+        background-color: #f5f9ff;
+    }
+
+    .results-table tr:hover {
+        background-color: #e6f0ff;
+        transition: 0.3s;
+    }
+
+    .no-data {
+        text-align: center;
+        font-weight: 600;
+        color: #666;
+        padding: 15px;
+    }
+
+    .hint-text {
+        font-weight: 600;
+        color: #0a3d62;
+        margin-top: 10px;
+    }
+
+    .cent{
+        justify-content: center;   /* centers form horizontally */
+    align-items: center;
+    }
+    
+</style>
+
+<div class="results-container">
+ <center><h2>Uploaded Results</h2> </center>
+
+<form method="GET" class="filter-form cent">
+       <label>Filter by Exam Type:</label>
+        <select name="exam_type">
+            <option value="">-- All Exams --</option>
+            <option value="Unit Test" {% if selected_exam == "Unit Test" %}selected{% endif %}>Unit Test</option>
+            <option value="Monthly" {% if selected_exam == "Monthly" %}selected{% endif %}>Monthly</option>
+            <option value="Midterm" {% if selected_exam == "Midterm" %}selected{% endif %}>Midterm</option>
+            <option value="Final" {% if selected_exam == "Final" %}selected{% endif %}>Final</option>
+        </select>
+
+        <button type="submit" class="filter-btn">View</button>
+    </form>
+
+    {% if selected_exam %}
+    <table class="results-table">
+        <tr>
+            <th>Student</th>
+            <th>Subject</th>
+            <th>Exam Type</th>
+            <th>Marks</th>
+            <th>Total Marks</th>
+            <th>Remarks</th>
+            <th>Uploaded Date</th>
+        </tr>
+
+        {% for r in results %}
+        <tr>
+            <td>{{ r.student.student_id.first_name }} {{ r.student.student_id.last_name }}</td>
+            <td>{{ r.subject }}</td>
+            <td>{{ r.exam_type }}</td>
+            <td>{{ r.marks_obtained }}</td>
+            <td>{{ r.total_marks }}</td>
+            <td>{{ r.remarks }}</td>
+            <td>{{ r.uploaded_at|date:"d M Y, h:i A" }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7" class="no-data">No results uploaded yet</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p class="hint-text">Please select an exam type and click Filter.</p>
+    {% endif %}
+</div>
+
+
+{% endblock teacherhome %}

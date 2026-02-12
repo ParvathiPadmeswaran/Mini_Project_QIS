@@ -1,0 +1,116 @@
+{% extends 'studentbase.html' %}
+
+{% block stud %}
+
+<style>
+    form {
+        width: 50%;
+        margin: 40px auto;
+        padding: 30px 40px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    h2 {
+        text-align: center;
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+        color: #2c3e50;
+        margin-bottom: 30px;
+    }
+
+    label, p {
+        font-weight: 600;
+        color: #34495e;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    input[type="date"],
+    select,
+    input[type="file"] {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
+        margin-bottom: 20px;
+        transition: border-color 0.3s;
+    }
+
+    input[type="date"]:focus,
+    select:focus,
+    input[type="file"]:focus {
+        border-color: #3498db;
+        outline: none;
+    }
+
+    button[type="submit"] {
+        width: 100%;
+        padding: 12px 0;
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #2980b9;
+    }
+
+    #fileDiv {
+        margin-bottom: 20px;
+    }
+
+    .error {
+        color: #e74c3c;
+        text-align: center;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+</style>
+<h2>Apply Leave</h2>
+{% if error %}
+    <p class="error">{{ error }}</p>
+{% else %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <label for="date">Date:</label>
+    <input type="date" name="date" required><br>
+
+    <label for="leaveType">Leave Type:</label>
+    <select name="leave_type" id="leaveType" onchange="toggleFile()" required>
+        <option value="">-- Select --</option>
+        <option value="Sick">Sick</option>
+        <option value="Personal">Personal</option>
+    </select><br>
+
+    <div id="fileDiv" style="display:none;">
+        <label for="document">Upload Document:</label>
+        <input type="file" name="document" required>
+    </div>
+
+    <button type="submit">Submit Leave</button>
+</form>
+{% endif %}
+
+<script>
+function toggleFile() {
+    let type = document.getElementById("leaveType").value;
+    let fileDiv = document.getElementById("fileDiv");
+
+    if(type === "Sick" || type === "Personal"){
+        fileDiv.style.display = "block";
+    } else {
+        fileDiv.style.display = "none";
+    }
+}
+</script>
+
+{% endblock stud %}

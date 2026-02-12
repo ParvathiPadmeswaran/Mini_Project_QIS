@@ -1,0 +1,5 @@
+<option value="">Select Teacher</option>
+{% for t in teachers %}
+    <option value="{{ t.id }}">{{ t.teacher_id.first_name }}</option>
+{% endfor %}
+

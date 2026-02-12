@@ -1,0 +1,154 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact</title>
+  <link rel="icon" href="favicon.ico">
+  <link href="{% static 'style.css' %}" rel="stylesheet">
+</head>
+
+<body x-data="{ page: 'home', 'darkMode': true, 'stickyMenu': false, 'navigationOpen': false, 'scrollTop': false }"
+  x-init="
+         darkMode = JSON.parse(localStorage.getItem('darkMode'));
+         $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
+  :class="{'b eh': darkMode === true}">
+  <!-- ===== Header Start ===== -->
+  <header class="g s r vd ya cj" :class="{ 'hh sm _k dj bl ll' : stickyMenu }"
+    @scroll.window="stickyMenu = (window.pageYOffset > 20) ? true : false">
+    <div class="bb ze ki xn 2xl:ud-px-0 oo wf yf i">
+      <div class="vd to/4 tc wf yf">
+        <a href="{% url 'home' %}">
+          <img class="om" src="{% static 'images/logo-light.png' %}" alt="Logo Light" width="150px" height="1000px"/> 
+        </a>
+
+        <!-- Hamburger Toggle BTN -->
+        <button class="po rc" @click="navigationOpen = !navigationOpen">
+          <span class="rc i pf re pd">
+            <span class="du-block h q vd yc">
+              <span class="rc i r s eh um tg te rd eb ml jl dl" :class="{ 'ue el': !navigationOpen }"></span>
+              <span class="rc i r s eh um tg te rd eb ml jl fl" :class="{ 'ue qr': !navigationOpen }"></span>
+              <span class="rc i r s eh um tg te rd eb ml jl gl" :class="{ 'ue hl': !navigationOpen }"></span>
+            </span>
+            <span class="du-block h q vd yc lf">
+              <span class="rc eh um tg ml jl el h na r ve yc" :class="{ 'sd dl': !navigationOpen }"></span>
+              <span class="rc eh um tg ml jl qr h s pa vd rd" :class="{ 'sd rr': !navigationOpen }"></span>
+            </span>
+          </span>
+        </button>
+        <!-- Hamburger Toggle BTN -->
+      </div>
+
+      <div class="vd wo/4 sd qo f ho oo wf yf" :class="{ 'd hh rm sr td ud qg ug jc yh': navigationOpen }">
+        <nav>
+        </nav>
+        <div class="tc wf ig pb no">
+          <a href=""> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </a>
+          <a href="{% url 'home' %}" class="xl" :class="{ 'mk': page === 'home' }">Home</a>
+          <a href=""> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </a>
+          <a href="{% url 'slogin' %}" class="xl">Sign In</a>
+          <a href=""> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </a>
+          <a href="{% url 'register' %}" class="xl">Sign Up</a>
+          <a href=""> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Header End ===== -->
+
+
+
+  <main>
+
+    <section id="support" class="i pg fh rm ji gp uq">
+      <!-- Bg Shapes -->
+      <img src="{% static 'images/shape-06.svg' %}" alt="Shape" class="h aa y" />
+      <img src="{% static 'images/shape-03.svg' %}"  alt="Shape" class="h ca u" />
+      <img src= "{% static 'images/shape-07.svg' %}"  alt="Shape" class="h w da ee" />
+      <img src= "{% static 'images/shape-12.svg' %}"  alt="Shape" class="h p s" />
+      <img src= "{% static 'images/shape-13.svg' %}"  alt="Shape" class="h r q" />
+
+      <!-- Section Title Start -->
+      <div
+              x-data="{ sectionTitle: `Let’s Stay Connected`, sectionTitleText: `Please feel free to contact us...`}">
+        <div class=" bb ze rj ki xn vq">
+          <h2 x-text="sectionTitle" class="fk vj pr kk wm on/5 gq/2 bb _b">
+          </h2>
+          <p class="bb on/5 wo/5 hq" x-text="sectionTitleText"></p>
+        </div>
+
+
+      </div>
+      <!-- Section Title End -->
+
+      <div class="i va bb ye ki xn wq jb mo">
+        <div class="tc uf sn tf rn un zf xl:gap-10">
+          <div class=" w-full mn/5 to/3 vk sg hh sm yh rq i pg">
+            <!-- Bg Shapes -->
+            <img src="{% static 'images/shape-03.svg' %}"  alt="Shape" class="h la x wd" />
+            <img src="{% static 'images/shape-06.svg' %}" alt="Shape" class="h la ma ne kf" />
+
+            <div class="fb">
+              <h4 class="wj kk wm cc">Email Address</h4>
+              <p><a href="#!">teachly@gmail.com</a></p>
+            </div>
+            <div class="fb">
+              <h4 class="wj kk wm cc">Office Location</h4>
+              <p>76/A, Green valle, Califonia USA.</p>
+            </div>
+            <div class="fb">
+              <h4 class="wj kk wm cc">Phone Number</h4>
+              <p><a href="#!">+009 8754 3433 223</a></p>
+            </div>
+      
+          </div>
+
+          <div class=" w-full nn/5 vo/3 vk sg hh sm yh tq">
+            <form action="" method="post">
+              {% csrf_token %}
+              <div class="tc sf yo ap zf ep qb">
+                <div class="vd to/2">
+                  <label class="rc ac" for="fullname">User-Name</label>
+                  <input type="text" name="name" id="username" placeholder="Enter name"
+                    class="vd ph sg zk xm _g ch pm hm dm dn em pl/50 xi mi" />
+                </div>
+
+                <div class="vd to/2">
+                  <label class="rc ac" for="email">Email Address</label>
+                  <input type="email" name="email" id="email" placeholder="example@gmail.com"
+                    class="vd ph sg zk xm _g ch pm hm dm dn em pl/50 xi mi" />
+                </div>
+              </div>
+
+              <div class="tc sf yo ap zf ep qb">
+               
+                <div class="vd to/2">
+                  <label class="rc ac" for="subject">Subject</label>
+                  <input type="text" for="subject" name="subject" placeholder="Type your subject"
+                    class="vd ph sg zk xm _g ch pm hm dm dn em pl/50 xi mi" />
+                </div>
+              </div>
+
+              <div class="fb">
+                <label class="rc ac" for="message">Message</label>
+                <textarea placeholder="Message" rows="4" name="message" 
+                  class="vd ph sg zk xm _g ch pm hm dm dn em pl/50 ci"></textarea>
+              </div>
+
+              <div class="tc xf"> 
+                <button style="background-color: rgb(24, 161, 220); border: none; width: 150px; height: 50px; border-radius: 200px; color: white;">Send Message</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    </main>
+     <script defer src="{% static 'bundle.js' %}"></script>
+    </body>
+    </html>

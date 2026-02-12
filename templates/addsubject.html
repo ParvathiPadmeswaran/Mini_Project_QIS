@@ -1,0 +1,108 @@
+{% extends 'studentbase.html' %}
+{% block stud %}
+<style>
+    h2 {
+        text-align: center;
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+        color: #2c3e50;
+        margin-bottom: 30px;
+    }
+
+    form {
+        width: 50%;
+        margin: 0 auto 50px auto;
+        background: #ffffff;
+        padding: 30px 40px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #34495e;
+    }
+
+    select {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
+        margin-bottom: 20px;
+        transition: border-color 0.3s;
+    }
+
+    select:focus {
+        border-color: #3498db;
+        outline: none;
+    }
+
+    button[type="submit"] {
+        width: 100%;
+        padding: 12px 0;
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #2980b9;
+    }
+
+    #teacher-div {
+        margin-bottom: 20px;
+    }
+</style>
+
+<h2>Choose Subject & Teacher</h2>
+
+<form method="POST" action="{% url 'savesub' student.id %}">
+    {% csrf_token %}
+
+    <label for="subject-select">Subject:</label>
+    <select name="subject" id="subject-select">
+        <option value="">Select Subject</option>
+        {% for sub in subjects %}
+            <option value="{{ sub }}" {% if student.subject == sub %}selected{% endif %}>{{ sub }}</option>
+        {% endfor %}
+    </select>
+
+    <div id="teacher-div" style="display: none;">
+        <label for="teacher-select">Teacher:</label>
+        <select name="teacher" id="teacher-select">
+            <option value="">Select Teacher</option>
+        </select>
+    </div>
+
+    <button type="submit">Save</button>
+</form>
+
+<script>
+document.getElementById('subject-select').addEventListener('change', function() {
+    let subject = this.value;
+    let teacherDiv = document.getElementById('teacher-div');
+    let teacherSelect = document.getElementById('teacher-select');
+
+    if (subject) {
+        fetch(`/get_teachers/?subject=${subject}`)
+            .then(response => response.text())
+            .then(data => {
+                teacherSelect.innerHTML = data;  //  options
+                teacherDiv.style.display = 'block';  // show teacher dropdown
+            });
+    } else {
+        teacherDiv.style.display = 'none';  // hide if no subject
+        teacherSelect.innerHTML = '<option value="">Select Teacher</option>';
+    }
+});
+</script>
+
+{% endblock stud %}

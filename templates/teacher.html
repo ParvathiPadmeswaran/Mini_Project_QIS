@@ -1,0 +1,38 @@
+{% extends 'teacherbase.html' %}
+
+{% load static %}
+
+{% block teacherhome %}
+
+    <!-- <center><h1>Teacher Home</h1></center> -->
+<section id="about"  class="about section" class="hero section dark-background">    
+
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="100">
+            <!-- <img src="{% static 'assets/img/about1.jpg' %}" class="img-fluid" alt=""> -->
+            <img src="{% static 'assets/img/about2.png' %}" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-6 order-2 order-lg-1 content" data-aos="fade-up" data-aos-delay="200">
+            <h3>Building positive teacher-student relationships: A guide to success</h3>
+            <p class="fst-italic">
+              Role of Teachers in Student Life
+            </p> 
+            <ul>
+              <li><i class="bi bi-check-circle" id="col"></i> <span>Mentorship, character building, and life skill development.</span></li>
+              <li><i class="bi bi-check-circle" id="col"></i> <span>Acting as guides, motivators, and role models who foster critical thinking, creativity, and a lifelong love for learning, shaping students.</span></li>
+              <li><i class="bi bi-check-circle" id="col"></i> <span>Shaping students' personal growth and future contributions to society.</span></li>
+            </ul>
+            <a  href="{% url 'viewte' %}"class="read-more" id="col1"><span>View Profile</span></a>
+            
+          </div>
+
+        </div>
+
+      </div>
+
+    </section> 
+{% endblock teacherhome %}

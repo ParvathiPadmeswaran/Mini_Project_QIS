@@ -1,0 +1,78 @@
+{% extends 'studentbase.html' %}
+
+{% block stud %}
+    
+
+<style>
+    h1 {
+        text-align: center;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        color: #2c3e50;
+        margin-bottom: 30px;
+    }
+
+    .teacher-table {
+        width: 80%;
+        margin: 0 auto 50px auto;
+        border-collapse: collapse;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .teacher-table th,
+    .teacher-table td {
+        padding: 12px 18px;
+        text-align: left;
+    }
+
+    .teacher-table th {
+        background-color: #3498db;
+        color: #fff;
+        font-weight: 600;
+    }
+
+    .teacher-table tr:nth-child(even) td {
+        background-color: #f4f6f8;
+    }
+
+    .teacher-table tr:hover td {
+        background-color: #e8f0fe;
+    }
+
+    .teacher-table td {
+        color: #34495e;
+    }
+
+    .teacher-table td[colspan] {
+        text-align: center;
+        color: #e74c3c;
+        font-style: italic;
+    }
+</style>
+
+<h1>Teacher Details</h1>
+
+<table class="teacher-table">
+    <tr>
+        <th>Name</th>
+        <th>Email ID</th>
+        <th>Phone Number</th>
+        <th>Subject</th>
+    </tr>
+
+    {% for i in view %}
+    <tr>
+        <td>{{ i.teacher_id.first_name }} {{ i.teacher_id.last_name }}</td>
+        <td>{{ i.teacher_id.email }}</td>
+        <td>{{ i.teacher_phn }}</td>
+        <td>{{ i.subject }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="5">No teachers for this subject.</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock stud %}
